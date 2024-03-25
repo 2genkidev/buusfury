@@ -1,0 +1,3 @@
+[submodule "tools/compress/jcalg1"]
+	path = tools/compress/jcalg1
+	url = https://github.com/jeremycollake/jcalg1.git
