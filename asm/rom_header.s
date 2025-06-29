@@ -3,7 +3,7 @@
 		B         	Init
 
 		GLOBAL RomHeaderNintendoLogo
-|RomHeaderNintendoLogo|
+RomHeaderNintendoLogo
 		DCB			0x24, 0xff, 0xae, 0x51, 0x69, 0x9a, 0xa2, 0x21
 		DCB			0x3d, 0x84, 0x82, 0x0a, 0x84, 0xe4, 0x09, 0xad
 		DCB			0x11, 0x24, 0x8b, 0x98, 0xc0, 0x81, 0x7f, 0x21
@@ -25,15 +25,44 @@
 		DCB			0xd6, 0x25, 0xe4, 0x8b, 0x38, 0x0a, 0xac, 0x72
 		DCB			0x21, 0xd4, 0xf8, 0x07
 		
+		GLOBAL RomHeaderGameTitle
+RomHeaderGameTitle
 		DCB			"DBZBUUSFURY",0
+
+		GLOBAL RomHeaderGameCode
+RomHeaderGameCode
 		DCB			"BG3E"
+
+		GLOBAL RomHeaderMakerCode
+RomHeaderMakerCode
 		DCB			"70"
+
+		GLOBAL RomHeaderMagic
+RomHeaderMagic
 		DCB			0x96
+
+		GLOBAL RomHeaderMainUnitCode
+RomHeaderMainUnitCode
 		DCB			0
+		
+		GLOBAL RomHeaderDeviceType
+RomHeaderDeviceType
 		DCB			0
+		
+		GLOBAL RomHeaderReserved1
+RomHeaderReserved1
 		DCB			0,0,0,0,0,0,0
+		
+		GLOBAL RomHeaderSoftwareVersion
+RomHeaderSoftwareVersion
 		DCB			0
+		
+		GLOBAL RomHeaderChecksum
+RomHeaderChecksum
 		DCB			0x84
+		
+		GLOBAL RomHeaderReserved2
+RomHeaderReserved2
 		DCB			0,0
 
 	END

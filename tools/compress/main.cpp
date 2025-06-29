@@ -53,20 +53,28 @@ std::vector<char> GetDataFromFile(const char *filename) {
     return std::move(buffer);
 }
 
-void saveBufferToFile(std::vector<char> &buffer, const std::string &filePath) {
+void saveBufferToFile(std::vector<char> &buffer, const std::string &filePath, size_t minSize) {
     std::ofstream file(filePath, std::ios::binary);
 
     if (!file) {
         std::cerr << "Unable to open file '" << filePath << "' for writing" << std::endl;
         exit(1);
     }
-
-    file.write(buffer.data(), buffer.size());
+	
+	size_t bufferSize = buffer.size();
+    file.write(buffer.data(), bufferSize);
+	
+	if (minSize && bufferSize < minSize) {
+		size_t remainingBytesToFill = minSize - bufferSize;
+		std::vector<char> padding(remainingBytesToFill, 0); // Fill with zeroes
+		file.write(padding.data(), padding.size());
+	}
 
     if (!file) {
         std::cerr << "Error occurred while writing to file." << std::endl;
         exit(1);
     }
+	
 }
 
 std::vector<char> CompressFile(char *filename) {
@@ -95,9 +103,9 @@ std::vector<char> CompressFile(char *filename) {
 
 int main(int argc, char **argv) {
 
-    if (argc != 3){
+    if (argc < 3){
         printf("Compress utility for Buu's Fury\r\n");
-        printf("Usage: compress <infile> <outfile>\r\n");
+        printf("Usage: compress <infile> <outfile> [<min size>]\r\n");
         exit(1);
     }
 
@@ -109,7 +117,15 @@ int main(int argc, char **argv) {
 
     // Remove checksum
     newBuffer.erase(newBuffer.begin() + 8, newBuffer.begin() + 8 + 4);
-    saveBufferToFile(newBuffer, argv[2]);
+    
+	if (argc == 3) {
+		saveBufferToFile(newBuffer, argv[2], 0);
+	} else if (argc == 4) { // TODO: Kinda hacky, we don't have named params yet...
+		size_t minSize;
+		sscanf(argv[3], "%lu", &minSize);
+		saveBufferToFile(newBuffer, argv[2], minSize);
+	}
+	
     return 0;
 }
 

@@ -1,3 +1,17 @@
+LOAD_ROM_2 0x02000000
+{
+    EWRAM 0x02000000 0x40000
+    {
+        ewram.o (+RW)
+    }
+}
+LOAD_ROM_3 0x03000000
+{
+    IWRAM 0x03000000 0x8000
+    {
+        iwram.o (+RW)
+    }
+}
 ROM_LOAD 0x08000000 {
 	ROM_START 0x08000000
     {

@@ -1,3 +1,4 @@
 baserom.gba
 baserom.gba*
 image.gba
+tools/compress/build/*

@@ -66,29 +66,29 @@ GBARam_UpdateBlockLinks__FP19struct_MallocHeader PROC
 ; void GBARam_FreeBlock(MallocHeader* block);
 ; Hand-made
 GBARam_FreeBlock__FP19struct_MallocHeader PROC
-		LDR      r3, |GBARam_LocalVars| + 4
-		PUSH	 {r4,r5}
-		LDR		 r1,[r3,#0]
-		MOV		 r4,#0
-		CMP		 r1,#0
-		BEQ		 |GBARam_FreeBlock_NULLBRANCH|
-		MOV		 r5,#0x7f
-		LSL		 r5,r5,#0x19
-		ADD		 r2,r1,r5
-		ASR		 r2,r2,#2
-		STRH	 r2,[r0,#8]
-		ADD		 r2,r0,r5
-		ASR		 r2,r2,#2
-		STRH	 r2,[r1,#0xa]
-		B		 |GBARam_FreeBlock_END|
+        LDR      r3, |GBARam_LocalVars| + 4
+        PUSH	 {r4,r5}
+        LDR		 r1,[r3,#0]
+        MOV		 r4,#0
+        CMP		 r1,#0
+        BEQ		 |GBARam_FreeBlock_NULLBRANCH|
+        MOV		 r5,#0x7f
+        LSL		 r5,r5,#0x19
+        ADD		 r2,r1,r5
+        ASR		 r2,r2,#2
+        STRH	 r2,[r0,#8]
+        ADD		 r2,r0,r5
+        ASR		 r2,r2,#2
+        STRH	 r2,[r1,#0xa]
+        B		 |GBARam_FreeBlock_END|
 |GBARam_FreeBlock_NULLBRANCH|
-		STRH	 r4,[r0,#0x8]
+        STRH	 r4,[r0,#0x8]
 |GBARam_FreeBlock_END|
-		STRH	 r4,[r0,#0xa]
-		STR		 r0,[r3,#0]
-		POP		 {r4,r5}
-		BX		 lr
-	ENDP
+        STRH	 r4,[r0,#0xa]
+        STR		 r0,[r3,#0]
+        POP		 {r4,r5}
+        BX		 lr
+    ENDP
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 |GBARam_MergeBlocks|
 		INCBIN		baserom.gba_0x03d548_0x03d5b8.extracted
