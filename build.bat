@@ -12,6 +12,13 @@ call grit assets\intro.bmp -gB8 -p! -ftb -gb -o build\asset_intro
 call grit assets\splash.bmp -gB8 -p! -ftb -gb -o build\asset_splash
 call grit assets\dialogbox.bmp -gB8 -p! -ftb -gb -o build\asset_dialogbox
 call grit assets\dialogbox_small.bmp -gB8 -p! -ftb -gb -o build\asset_dialogbox_small
+
+:: TODO: What are these?
+call grit assets\cornet_top_left.bmp -gB8 -p! -ftb -gb -o build\corner_top_left
+call grit assets\corner_top_right.bmp -gB8 -p! -ftb -gb -o build\corner_top_right
+call grit assets\corner_bottom_left.bmp -gB8 -p! -ftb -gb -o build\corner_bottom_left
+call grit assets\corner_bottom_right.bmp -gB8 -p! -ftb -gb -o build\corner_bottom_right
+
 call tools\compress\build\Debug\compress.exe build\asset_intro.img.bin build\asset_intro.compressed
 :: Not sure why these zeroes are there...
 call tools\compress\build\Debug\compress.exe build\asset_splash.img.bin build\asset_splash.compressed 20516
@@ -26,7 +33,6 @@ call tools\incbin.bat baserom.gba 0x03d63c 0x03d730
 call tools\incbin.bat baserom.gba 0x03d740 0x03d784
 call tools\incbin.bat baserom.gba 0x03d784 0x049114
 call tools\incbin.bat baserom.gba 0x049120 0x055620
-call tools\incbin.bat baserom.gba 0x0561c4 0x05792c
 call tools\incbin.bat baserom.gba 0x06d4e0 0x071758
 :: <immediately after dialogboxes>
 call tools\incbin.bat baserom.gba 0x071c90 0x3be3d4
@@ -42,10 +48,11 @@ armasm		asm/iwram.s -o build/iwram.o
 armasm		asm/rest_of_the_game.s -o build/rest_of_the_game.o
 
 echo ::: Compiling source files :::
+armcpp		-c src/color_transforms.cpp -o build/color_transforms.o
 armcpp		-c src/strings.cpp -o build/strings.o
 
 echo ::: Linking ^& Building image :::
-armlink		build/strings.o build/buu.o build/rest_of_the_game.o build/ewram.o build/iwram.o -noremove -scatter scatter.ld -o build/buu.axf
+armlink		build/color_transforms.o build/strings.o build/buu.o build/rest_of_the_game.o build/ewram.o build/iwram.o -noremove -scatter scatter.ld -o build/buu.axf
 fromelf    	build/buu.axf -bin -o build/output
 ren build\output\ROM_START image.gba
 move build\output\image.gba image.gba

@@ -25,6 +25,10 @@ ROM_LOAD 0x08000000 {
 	{
 		buu.o (AfterLibs)
 	}
+	COLOR_TRANSFORMATIONS 0x0805672c
+    {
+		color_transforms.o (.constdata)
+    }
 	STRINGS 0x0805792c
     {
 		strings.o (+RW +ZI)
