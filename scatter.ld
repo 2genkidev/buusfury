@@ -19,7 +19,11 @@ ROM_LOAD 0x08000000 {
     }
 	MEMORY_START 0x0803d4d0
 	{
-		buu.o (GBARam)
+		GBARam.o (GBARam)
+	}
+	UNUSED_GBARAM 0x0803d740
+	{
+		buu.o (UnusedGBARam)
 	}
 	AFTER_LIBS 0x08049114
 	{

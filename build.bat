@@ -41,18 +41,19 @@ call tools\incbin.bat baserom.gba 0x3c33f8 0x7b89a8
 :: <null bytes>
 call tools\incbin.bat baserom.gba 0x7b89a8 0x800000
 
-echo ::: Building ASM files :::
-armasm		asm/buu.s -o build/buu.o
-armasm		asm/ewram.s -o build/ewram.o
-armasm		asm/iwram.s -o build/iwram.o
-armasm		asm/rest_of_the_game.s -o build/rest_of_the_game.o
-
 echo ::: Compiling source files :::
 armcpp		-c src/color_transforms.cpp -o build/color_transforms.o
 armcpp		-c src/strings.cpp -o build/strings.o
 
+echo ::: Building ASM files :::
+armasm		asm/buu.s -o build/buu.o
+armasm		asm/GBARam.s -o build/GBARam.o
+armasm		asm/ewram.s -o build/ewram.o
+armasm		asm/iwram.s -o build/iwram.o
+armasm		asm/rest_of_the_game.s -o build/rest_of_the_game.o
+
 echo ::: Linking ^& Building image :::
-armlink		build/color_transforms.o build/strings.o build/buu.o build/rest_of_the_game.o build/ewram.o build/iwram.o -noremove -scatter scatter.ld -o build/buu.axf
+armlink		build/GBARam.o build/color_transforms.o build/strings.o build/buu.o build/rest_of_the_game.o build/ewram.o build/iwram.o -noremove -scatter scatter.ld -o build/buu.axf
 fromelf    	build/buu.axf -bin -o build/output
 ren build\output\ROM_START image.gba
 move build\output\image.gba image.gba

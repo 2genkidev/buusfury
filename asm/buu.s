@@ -10,14 +10,16 @@
 		INCLUDE 	crt0.s
 		INCBIN 	  	baserom.gba_0x0158_0x3d4d0.extracted
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		INCLUDE		GBARam.s
-	
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	AREA UnusedGBARam, CODE, READONLY
+		CODE32
 |GBARam_UnusedFunctionsAndTheirVariables|
 		INCBIN		baserom.gba_0x03d740_0x03d784.extracted		
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 |Unknown__1|
 		INCBIN		baserom.gba_0x03d784_0x049114.extracted
-	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;	
 	AREA AfterLibs, CODE, READONLY
 		CODE32
 |MaybeStart|
